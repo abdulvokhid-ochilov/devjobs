@@ -1,5 +1,5 @@
 const JobsDetails = function () {
-  return;
+  return <>This is jobsDetails page</>;
 };
 
 export default JobsDetails;
