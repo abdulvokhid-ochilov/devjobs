@@ -1,6 +1,6 @@
 module.exports = {
   mode: "jit",
-  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  purge: ["./src/**/*.{html,js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
@@ -30,6 +30,14 @@ module.exports = {
           hover: "#525861",
         },
       },
+      borderRadius: {
+        lg: "100px",
+      },
+      // width: {
+      //   "1110px": "1110px",
+      //   "690px": "690px",
+      //   "330px": "330px",
+      // },
     },
   },
   variants: {
