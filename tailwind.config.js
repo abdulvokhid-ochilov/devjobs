@@ -30,14 +30,6 @@ module.exports = {
           hover: "#525861",
         },
       },
-      borderRadius: {
-        lg: "100px",
-      },
-      // width: {
-      //   "1110px": "1110px",
-      //   "690px": "690px",
-      //   "330px": "330px",
-      // },
     },
   },
   variants: {
