@@ -11,10 +11,9 @@ const Search = () => {
         <div className="flex items-center border-r-[1px] border-r-grey-light pl-[32px] pr-[16px] py-[28px] w-[462px]">
           <SearchIcon className="w-[26px]" />
           <input
-            className="ml-[16px] w-full focus:outline-none"
+            className="ml-[16px] w-full focus:outline-none placeholder-grey-med"
             type="text"
-            id="fname"
-            name="fname"
+            name="filter"
             value=""
             placeholder="Filter by title, companies, expertise…"
           />
@@ -22,18 +21,26 @@ const Search = () => {
         <div className="flex items-center border-r-[1px] border-r-grey-light pl-[32px] pr-[16px] py-[28px] w-[299px]">
           <LocationIcon className="w-[22px]" />
           <input
-            className="ml-[16px] w-full focus:outline-none"
+            className="ml-[16px] w-full focus:outline-none placeholder-grey-med"
             type="text"
-            id="fname"
-            name="fname"
+            name="location"
             value=""
             placeholder="Filter by location…"
           />
         </div>
         <div className="flex justify-between items-center pl-[32px] pr-[16px] py-[16px] w-[345px]">
-          <input className="" type="checkbox" name="full_time" />
-          <div className="flex items-center"></div>
-          <CheckIcon />
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              name="full_time"
+              value=""
+              class="cursor-pointer opacity-0 absolute h-[24px] w-[24px]"
+            />
+            <div class="bg-grey-light border-0 rounded-sm  h-[24px] w-[24px] flex flex-shrink-0 justify-center items-center mr-[16px]">
+              <CheckIcon class="hidden" />
+            </div>
+            <label for="full_time">Full Time Only</label>
+          </div>
           <Button
             text="Search"
             type="submit"
