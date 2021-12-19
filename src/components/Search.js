@@ -6,18 +6,34 @@ import Button from "./Button";
 
 const Search = () => {
   return (
-    <div className="w-[330px] sm:w-[690px] md:w-[1110px] mx-auto">
-      <form className="bg-white">
-        <div className="">
-          <SearchIcon />
-          <input type="text" id="fname" name="fname" value="John" />
+    <div className="w-[330px] sm:w-[690px] md:w-[1110px] mx-auto bg-white rounded-[6px] -mt-10">
+      <form className="flex justify-between">
+        <div className="flex items-center border-r-[1px] border-r-grey-light pl-[32px] pr-[16px] py-[28px] w-[462px]">
+          <SearchIcon className="w-[26px]" />
+          <input
+            className="ml-[16px] w-full focus:outline-none"
+            type="text"
+            id="fname"
+            name="fname"
+            value=""
+            placeholder="Filter by title, companies, expertise…"
+          />
         </div>
-        <div className="">
-          <LocationIcon />
-          <input type="text" id="fname" name="fname" value="John" />
+        <div className="flex items-center border-r-[1px] border-r-grey-light pl-[32px] pr-[16px] py-[28px] w-[299px]">
+          <LocationIcon className="w-[22px]" />
+          <input
+            className="ml-[16px] w-full focus:outline-none"
+            type="text"
+            id="fname"
+            name="fname"
+            value=""
+            placeholder="Filter by location…"
+          />
         </div>
-        <div className="">
-          <input type="text" id="fname" name="fname" value="John" />
+        <div className="flex justify-between items-center pl-[32px] pr-[16px] py-[16px] w-[345px]">
+          <input className="" type="checkbox" name="full_time" />
+          <div className="flex items-center"></div>
+          <CheckIcon />
           <Button
             text="Search"
             type="submit"
