@@ -4,7 +4,7 @@ import JobsDetails from "./pages/JobsDetails";
 import Header from "./components/Header";
 
 const App = () => (
-  <div className="font-KumbhSans bg-grey-light dark:bg-blue-midnight dark:text-white min-h-screen">
+  <div className="font-KumbhSans bg-grey-light dark:bg-blue-midnight dark:text-white min-h-screen flex-auto">
     <BrowserRouter>
       <Header />
       <Routes>

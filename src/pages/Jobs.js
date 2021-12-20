@@ -4,7 +4,7 @@ import Search from "../components/Search";
 
 const Jobs = () => {
   return (
-    <div>
+    <div id="jobs">
       <Search />
     </div>
   );

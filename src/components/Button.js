@@ -1,10 +1,10 @@
-const Button = ({ text, type, onClick }) => {
+const Button = ({ text, type, onClick, width, icon }) => {
   return (
     <button
       aria-label="button"
       onClick={onClick}
       type={type}
-      className={`h-[48px] px-[32px] rounded font-semibold bg-violet-dark text-white hover:bg-violet-light`}
+      className={`w-${width} h-[48px] sm:px-[16px] md:px-[32px] rounded font-semibold bg-violet-dark text-white hover:bg-violet-light `}
     >
       {text}
     </button>
