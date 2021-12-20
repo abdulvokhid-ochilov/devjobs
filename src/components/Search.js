@@ -6,14 +6,14 @@ import Button from "./Button";
 import { useModal } from "react-hooks-use-modal";
 
 const Search = () => {
-  const [Modal, open, close, isOpen] = useModal("jobs", {
+  const [Modal, open, close, isOpen] = useModal("root", {
     preventScroll: true,
     closeOnOverlayClick: true,
   });
   return (
-    <div className="w-[330px] sm:w-[690px] md:w-[1110px] mx-auto bg-white rounded-[6px] -mt-10">
+    <div className="min-w-[330px] max-w-[1110px] lg:mx-auto md:mx-[40px] mx-[24px] bg-white rounded-[6px] -mt-10">
       <form className="flex justify-between">
-        <div className="flex items-center sm:border-r-[1px] sm:pl-[24px] md:pl-[32px] pr-[16px] py-[28px] sm:w-[221px] md:w-[462px]">
+        <div className="flex items-center sm:border-r-[1px] sm:pl-[24px] lg:pl-[32px] pr-[16px] py-[28px] w-full max-w-[462px]">
           <SearchIcon className="hidden text-violet-dark sm:flex w-[26px]" />
           <input
             className="ml-[24px] sm:ml-[16px] w-full focus:outline-none placeholder-grey-med"
@@ -23,7 +23,7 @@ const Search = () => {
             placeholder="Filter by title, companies, expertise…"
           />
         </div>
-        <div className="hidden sm:flex items-center border-r-[1px] sm:pl-[24px] md:pl-[32px] pr-[16px] py-[28px] sm:w-[212px] md:w-[299px]">
+        <div className="hidden sm:flex items-center border-r-[1px] sm:pl-[24px] lg:pl-[32px] pr-[16px] py-[28px] w-full max-w-[299px]">
           <LocationIcon className="w-[22px]" />
           <input
             className="ml-[16px] w-full focus:outline-none placeholder-grey-med"
@@ -33,7 +33,7 @@ const Search = () => {
             placeholder="Filter by location…"
           />
         </div>
-        <div className="hidden sm:flex justify-between items-center sm:pl-[24px] md:pl-[32px] pr-[16px] py-[16px] sm:w-[252px] md:w-[345px]">
+        <div className="hidden sm:flex justify-between items-center sm:pl-[24px] lg:pl-[32px] pr-[16px] py-[16px] w-full max-w-[345px]">
           <div class="flex items-center">
             <input
               type="checkbox"
@@ -44,7 +44,9 @@ const Search = () => {
             <div class="bg-grey-light border-0 rounded-sm  h-[24px] w-[24px] flex flex-shrink-0 justify-center items-center mr-[16px]">
               <CheckIcon class="hidden" />
             </div>
-            <label for="full_time">Full Time</label>
+            <label for="full_time" className="font-semibold">
+              Full Time
+            </label>
           </div>
           <Button
             width="w-auto"
@@ -89,7 +91,9 @@ const Search = () => {
               <div class="bg-grey-light border-0 rounded-sm  h-[24px] w-[24px] flex flex-shrink-0 justify-center items-center mr-[16px]">
                 <CheckIcon class="hidden" />
               </div>
-              <label for="full_time">Full Time Only</label>
+              <label for="full_time" className="font-semibold">
+                Full Time Only
+              </label>
             </div>
             <div className="px-[24px]">
               <Button
