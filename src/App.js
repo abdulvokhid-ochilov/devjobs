@@ -1,6 +1,6 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Jobs from "./pages/Jobs";
-import JobsDetails from "./pages/JobsDetails";
+import JobDetails from "./pages/JobDetails";
 import Header from "./components/Header";
 
 const App = () => (
@@ -8,7 +8,7 @@ const App = () => (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route element={<JobsDetails />} path="/details"></Route>
+        <Route element={<JobDetails />} path="/details/:id"></Route>
         <Route element={<Jobs />} path="/"></Route>
       </Routes>
     </BrowserRouter>

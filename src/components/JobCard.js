@@ -29,10 +29,6 @@ const JobCard = ({ detail }) => {
           {detail.location}
         </p>
       </div>
-      {/* <img
-        src="C:\Users\82102\Desktop\devjobs-web-app\devjobs\src\assets\logos\blogr.svg"
-        alt="pomodoro"
-      /> */}
     </>
   );
 };

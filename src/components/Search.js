@@ -97,7 +97,7 @@ const Search = () => {
             </div>
             <div className="px-[24px]">
               <Button
-                width="[279px]"
+                width="[279px] w-full"
                 text="Search"
                 type="submit"
                 onClick={() => {
