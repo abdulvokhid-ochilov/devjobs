@@ -9,7 +9,7 @@ const Jobsjob = function () {
 
   return (
     <>
-      <div className="md:mx-auto sm:mx-[40px] mx-[24px] -mt-10 max-w-[730px] min-w-[330px]">
+      <div className="md:mx-auto sm:mx-[40px] mx-[24px] -mt-10 mb-10 sm:mb-20 max-w-[730px] min-w-[330px]">
         <div className="bg-white dark:bg-blue-dark pb-[2rem] sm:px-0 sm:py-0 sm:pr-[40px] relative w-full min-h-[205px] sm:min-h-[140px] max-w-[22rem] sm:max-w-full flex flex-col sm:flex-row justify-between items-center mx-auto rounded-md">
           <div className="flex justify-center w-full sm:w-3/12 self-stretch">
             <div
@@ -86,16 +86,16 @@ const Jobsjob = function () {
           </ul>
         </div>
       </div>
-      <footer className="bottom-0 py-4 px-8 bg-white dark:bg-blue-dark">
-        <div className="w-full max-w-xl mx-auto flex justify-between items-center">
-          <div>
-            <p className="font-bold py-1 lg:text-lg">{job.position}</p>
-            <p className="text-grey-dark text-xs">{job.company}</p>
+      <footer className="bottom-0 py-5 bg-white dark:bg-blue-dark">
+        <div className="max-w-[730px] md:mx-auto sm:mx-[40px] mx-[24px] flex justify-between sm:items-center flex-col sm:flex-row">
+          <div className="hidden sm:flex flex-col">
+            <p className="font-bold py-1 text-[20px]">{job.position}</p>
+            <p className="text-grey-dark text-base">{job.company}</p>
           </div>
           <a target="blank" rel="noopener noreferrer" href={job.apply}>
             <Button
               text="Apply Now"
-              className="bg-violet-dark text-white hover:bg-violet-light text-xs md:text-sm"
+              className="bg-violet-dark text-white hover:bg-violet-light w-full"
             />
           </a>
         </div>
