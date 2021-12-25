@@ -1,4 +1,5 @@
 module.exports = {
+  // important: true,
   mode: "jit",
   purge: ["./src/**/*.{html,js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: "class", // or 'media' or 'class'
@@ -36,4 +37,7 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  future: {
+    purgeLayersByDefault: true,
+  },
 };
