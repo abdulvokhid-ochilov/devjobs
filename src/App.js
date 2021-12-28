@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Login from "./pages/Login";
 import Forgot from "./pages/Forgot";
 import Registration from "./pages/Registration";
-import Settings from "./pages/Settings";
+// import Settings from "./pages/Settings";
 
 const App = () => (
   <div className="font-KumbhSans bg-grey-light dark:bg-blue-midnight dark:text-white min-h-screen flex-auto">
@@ -16,7 +16,7 @@ const App = () => (
         <Route element={<Login />} path="/login"></Route>
         <Route element={<Forgot />} path="/forgot"></Route>
         <Route element={<Registration />} path="/registration"></Route>
-        <Route element={<Settings />} path="/settings"></Route>
+        {/* <Route element={<Settings />} path="/settings"></Route> */}
         <Route element={<Jobs />} path="/"></Route>
       </Routes>
     </BrowserRouter>

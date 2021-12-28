@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ModeSwitcher from "./ModeSwitcher";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import Menu from "./Menu";
 
 const Header = () => {
   return (
@@ -13,14 +12,7 @@ const Header = () => {
         </Link>
         <div className="flex justify-between">
           <div class="flex items-center mr-[30px]">
-            <Link to="../settings" className="flex items-center">
-              <FontAwesomeIcon
-                icon={faUserCircle}
-                size="2x"
-                color="white"
-                className="hover:text-grey-hover"
-              />
-            </Link>
+            <Menu />
           </div>
           <ModeSwitcher />
         </div>
