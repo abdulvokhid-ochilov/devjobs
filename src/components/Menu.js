@@ -48,7 +48,7 @@ const Menu = () => {
           </Link>
           <Link
             onClick={() => setMenuState(!menuState)}
-            to={"../"}
+            to={"../post-job"}
             className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
             role="menuitem"
           >
@@ -58,7 +58,7 @@ const Menu = () => {
           </Link>
           <Link
             onClick={() => setMenuState(!menuState)}
-            to={"../"}
+            to={"../myjobs"}
             className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
             role="menuitem"
           >
@@ -74,6 +74,16 @@ const Menu = () => {
           >
             <span className="flex flex-col">
               <span>Applicants</span>
+            </span>
+          </Link>
+          <Link
+            onClick={() => setMenuState(!menuState)}
+            to={"../applicants/45"}
+            className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+            role="menuitem"
+          >
+            <span className="flex flex-col">
+              <span>About</span>
             </span>
           </Link>
         </div>
