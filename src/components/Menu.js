@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Context from "../store/context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Menu = () => {
   const [menuState, setMenuState] = useState(false);
@@ -16,9 +17,13 @@ const Menu = () => {
         {!isLoggedIn ? (
           <Link
             to="../login"
-            className="w-[30px] h-[24px] flex items-center justify-center rounded bg-white hover:cursor-pointer text-violet-dark hover:text-violet-light"
+            className="w-full px-[14px] py-[8px] flex items-center justify-center rounded bg-white hover:cursor-pointer text-violet-dark hover:text-violet-light font-semibold"
           >
-            <FontAwesomeIcon icon={faSignInAlt}></FontAwesomeIcon>{" "}
+            Log in
+            <FontAwesomeIcon
+              icon={faSignInAlt}
+              className="ml-[6px]"
+            ></FontAwesomeIcon>
           </Link>
         ) : (
           <button
@@ -100,6 +105,21 @@ const Menu = () => {
           >
             <span className="flex flex-col">
               <span>About</span>
+            </span>
+          </Link>
+          <Link
+            onClick={() => {
+              setMenuState(!menuState);
+              authCtx.logout();
+            }}
+            to={"../"}
+            className="block px-4 py-2 text-md text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-100 dark:hover:text-white dark:hover:bg-gray-600"
+            role="menuitem"
+          >
+            <span className="flex flex-col">
+              <span>
+                <FontAwesomeIcon icon={faSignOutAlt}></FontAwesomeIcon> Log out
+              </span>
             </span>
           </Link>
         </div>
