@@ -1,6 +1,51 @@
 import { Link } from "react-router-dom";
+import { useState, useRef, useContext } from "react";
+import Context from "../store/context";
 
 const Login = () => {
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
+
+  const authCtx = useContext(Context);
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    const enteredEmail = emailInputRef.current.value;
+    const enteredPassword = passwordInputRef.current.value;
+
+    let url = "http://localhost:5000/api/v1/user/login/";
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        email: enteredEmail,
+        password: enteredPassword,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Authentication failed!";
+
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        authCtx.login(data.token);
+
+        // history.replace("/");
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
+
   return (
     <div className="flex justify-center pt-[40px] px-[24px]">
       <div className="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded shadow dark:bg-blue-dark sm:px-6 md:px-8 lg:px-10">
@@ -8,7 +53,7 @@ const Login = () => {
           Login To Your Account
         </div>
         <div className="mt-8">
-          <form action="#" autoComplete="off">
+          <form action="#" onSubmit={submitHandler}>
             <div className="flex flex-col mb-2">
               <div className="flex relative ">
                 <span className="rounded-l inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-grey-dark shadow-sm text-sm">
@@ -23,10 +68,12 @@ const Login = () => {
                   </svg>
                 </span>
                 <input
-                  type="text"
+                  ref={emailInputRef}
+                  type="email"
                   id="sign-in-email"
                   className="rounded-r flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-violet-dark focus:border-transparent"
                   placeholder="Your email"
+                  required
                 />
               </div>
             </div>
@@ -44,10 +91,12 @@ const Login = () => {
                   </svg>
                 </span>
                 <input
+                  ref={passwordInputRef}
                   type="password"
                   id="sign-in-email"
                   className=" rounded-r flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-violet-dark focus:border-transparent"
                   placeholder="Your password"
+                  required
                 />
               </div>
             </div>

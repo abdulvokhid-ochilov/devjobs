@@ -1,29 +1,45 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import Context from "../store/context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Menu = () => {
   const [menuState, setMenuState] = useState(false);
+  const authCtx = useContext(Context);
+
+  const isLoggedIn = authCtx.isLoggedIn;
 
   return (
     <div className="relative inline-block text-left">
       <div>
-        <button
-          onClick={() => setMenuState(!menuState)}
-          type="button"
-          className=" border border-gray-300 bg-white dark:bg-blue-dark shadow-sm flex items-center justify-center w-full rounded  px-4 py-2 font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-grey-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
-          id="options-menu"
-        >
-          <span className="hidden sm:flex">Menu </span>
-          <svg
-            width="20"
-            height="20"
-            fill="currentColor"
-            viewBox="0 0 1792 1792"
-            xmlns="http://www.w3.org/2000/svg"
+        {!isLoggedIn ? (
+          <Link
+            to="../login"
+            className="w-[30px] h-[24px] flex items-center justify-center rounded bg-white hover:cursor-pointer text-violet-dark hover:text-violet-light"
           >
-            <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
-          </svg>
-        </button>
+            <FontAwesomeIcon icon={faSignInAlt}></FontAwesomeIcon>{" "}
+          </Link>
+        ) : (
+          <button
+            onClick={() => setMenuState(!menuState)}
+            type="button"
+            className=" border border-gray-300 bg-white dark:bg-blue-dark shadow-sm flex items-center justify-center w-full rounded  px-4 py-2 font-medium text-gray-700 dark:text-gray-50 hover:bg-gray-50 dark:hover:bg-grey-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+            id="options-menu"
+          >
+            <span className="hidden sm:flex">Menu </span>
+
+            <svg
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 1792 1792"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z"></path>
+            </svg>
+          </button>
+        )}
       </div>
       <div
         className={`${
