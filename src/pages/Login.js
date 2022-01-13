@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useRef, useContext } from "react";
+import { useRef, useContext } from "react";
 import Context from "../store/context";
 
 const Login = () => {
@@ -38,8 +38,6 @@ const Login = () => {
       })
       .then((data) => {
         authCtx.login(data.token);
-
-        // history.replace("/");
       })
       .catch((err) => {
         alert(err.message);

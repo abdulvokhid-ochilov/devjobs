@@ -28,6 +28,11 @@ const App = () => {
           ) : (
             <Route element={<Navigate to="/" />} path="/login"></Route>
           )}
+          {!isLoggedIn ? (
+            <Route element={<Registration />} path="/registration"></Route>
+          ) : (
+            <Route element={<Navigate to="/" />} path="/registration"></Route>
+          )}
           {!isLoggedIn && <Route element={<Forgot />} path="/forgot"></Route>}
           {!isLoggedIn && (
             <Route element={<Registration />} path="/registration"></Route>
