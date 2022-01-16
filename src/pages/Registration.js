@@ -35,7 +35,7 @@ const Registration = () => {
     event.preventDefault();
 
     const firstName = firstNameInput.current.value;
-    // const lastName = lastNameInput.current.current;
+    const lastName = lastNameInput.current.current;
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
 
@@ -43,10 +43,11 @@ const Registration = () => {
     fetch(url, {
       method: "POST",
       body: JSON.stringify({
-        name: firstName,
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         password: password,
-        passwordConfirm: password,
+        // passwordConfirm: password,
       }),
       headers: {
         "Content-Type": "application/json",
