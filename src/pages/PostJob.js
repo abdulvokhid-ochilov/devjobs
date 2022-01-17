@@ -3,10 +3,13 @@ import { faImage } from "@fortawesome/free-solid-svg-icons";
 import EditorComp from "../components/Editor";
 
 const PostJob = () => {
+  const submitHandler = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="-mt-10 min-w-[330px] max-w-[1110px] lg:mx-auto md:mx-[40px] mx-[24px] md:grid md:grid-cols-2 md:gap-6">
       <div className="mt-5 md:mt-0 md:col-span-2">
-        <form action="#" method="POST">
+        <form onSubmit={submitHandler}>
           <div className="shadow sm:rounded-md sm:overflow-hidden">
             <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
               <div>

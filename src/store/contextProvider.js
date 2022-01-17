@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Context from "./context";
 
 const retrieveStoredToken = () => {
@@ -18,6 +18,7 @@ const ContextProvider = (props) => {
   }
 
   const [token, setToken] = useState(initialToken);
+  const [mode, setMode] = useState();
 
   const userIsLoggedIn = !!token;
 
@@ -37,18 +38,33 @@ const ContextProvider = (props) => {
     // logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
 
-  //   useEffect(() => {
-  //     if (tokenData) {
-  //       console.log(tokenData.duration);
-  //       logoutTimer = setTimeout(logoutHandler, tokenData.duration);
-  //     }
-  //   }, [tokenData, logoutHandler]);
+  useEffect(() => {
+    if (localStorage.theme === "true") {
+      themeSetter(true);
+    } else {
+      themeSetter(false);
+    }
+  }, []);
+
+  const themeSetter = (condition) => {
+    if (condition) {
+      document.documentElement.classList.add("dark");
+      localStorage.theme = true;
+      setMode(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.theme = false;
+      setMode(false);
+    }
+  };
 
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
+    darkMode: mode,
     login: loginHandler,
     logout: logoutHandler,
+    setMode: themeSetter,
   };
 
   return (

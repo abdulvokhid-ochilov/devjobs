@@ -1,22 +1,14 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
-export default function EditorComp() {
+export default function EditorComp(props) {
   const editorRef = useRef(null);
   const log = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
     }
   };
-  let useDarkMode = false;
-  //   useEffect(() => {
-  //     if (localStorage.theme === "true") {
-  //       useDarkMode = true;
-  //     } else {
-  //       //   themeSetter(false);
-  //     }
-  //   }, []);
-  //   const password = `/^${values.password}$/`;
+
   return (
     <>
       <Editor
@@ -101,8 +93,12 @@ export default function EditorComp() {
           noneditable_noneditable_class: "mceNonEditable",
           toolbar_mode: "sliding",
           contextmenu: "link image imagetools table",
-          skin: useDarkMode ? "oxide-dark" : "oxide",
-          content_css: useDarkMode ? "dark" : "default",
+          skin: window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "oxide-dark"
+            : "oxide",
+          content_css: window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "default",
           content_style:
             "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
         }}

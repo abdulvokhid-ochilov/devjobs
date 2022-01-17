@@ -1,31 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ReactComponent as Moon } from "../assets/desktop/icon-moon.svg";
 import { ReactComponent as Sun } from "../assets/desktop/icon-sun.svg";
+import Context from "../store/context";
 
 const ModeSwitcher = () => {
+  const ctx = useContext(Context);
+  const { darkMode } = ctx;
   const [toggle, setToggle] = useState();
 
   const toggleClass = " transform translate-x-[24px]";
 
-  useEffect(() => {
-    if (localStorage.theme === "true") {
-      themeSetter(true);
-    } else {
-      themeSetter(false);
-    }
-  }, []);
-
-  const themeSetter = (condition) => {
+  const handleThemeChange = (condition) => {
     if (condition) {
-      document.documentElement.classList.add("dark");
-      localStorage.theme = true;
-      setToggle(true);
+      ctx.setMode(true);
     } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.theme = false;
-      setToggle(false);
+      ctx.setMode(false);
     }
   };
+
+  useEffect(() => {
+    setToggle(darkMode);
+  }, [darkMode]);
 
   return (
     <div className="flex justify-between items-center w-[112px]">
@@ -34,7 +29,7 @@ const ModeSwitcher = () => {
         <div
           className="group w-[48px] h-[24px] flex items-center bg-white rounded-full p-[5px] cursor-pointer"
           onClick={() => {
-            themeSetter(!toggle);
+            handleThemeChange(!toggle);
           }}
         >
           <div
