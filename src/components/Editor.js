@@ -103,7 +103,6 @@ export default function EditorComp(props) {
             "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
         }}
       />
-      <button onClick={log}>Log editor content</button>
     </>
   );
 }

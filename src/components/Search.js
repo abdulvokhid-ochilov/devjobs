@@ -19,7 +19,6 @@ const Search = () => {
             className="ml-[24px] sm:ml-[16px] w-full focus:outline-none placeholder-grey-med dark:bg-blue-dark"
             type="text"
             name="filter"
-            value=""
             placeholder="Filter by title, companies, expertise…"
           />
         </div>
@@ -29,20 +28,18 @@ const Search = () => {
             className="ml-[16px] w-full focus:outline-none placeholder-grey-med dark:bg-blue-dark"
             type="text"
             name="location"
-            value=""
             placeholder="Filter by location…"
           />
         </div>
         <div className="hidden sm:flex justify-between items-center sm:pl-[24px] lg:pl-[32px] pr-[16px] py-[16px] w-full max-w-[345px]">
-          <div class="flex items-center">
+          <div className="flex items-center">
             <input
               type="checkbox"
               name="full_time"
-              value=""
-              class="cursor-pointer opacity-0 absolute h-[24px] w-[24px]"
+              className="cursor-pointer opacity-0 absolute h-[24px] w-[24px]"
             />
-            <div class="bg-grey-light dark:bg-grey-btn border-0 rounded-sm  h-[24px] w-[24px] flex flex-shrink-0 justify-center items-center mr-[16px]">
-              <CheckIcon class="hidden dark:bg-violet-dark dark:w-full dark:h-full dark:items-center dark:p-[5px] dark:rounded-sm" />
+            <div className="bg-grey-light dark:bg-grey-btn border-0 rounded-sm  h-[24px] w-[24px] flex flex-shrink-0 justify-center items-center mr-[16px]">
+              <CheckIcon className="hidden dark:bg-violet-dark dark:w-full dark:h-full dark:items-center dark:p-[5px] dark:rounded-sm" />
             </div>
             <label for="full_time" className="font-semibold">
               Full Time
@@ -77,19 +74,17 @@ const Search = () => {
                 className="ml-[16px] w-full focus:outline-none placeholder-grey-med dark:bg-blue-dark"
                 type="text"
                 name="location"
-                value=""
                 placeholder="Filter by location…"
               />
             </div>
-            <div class="flex items-center p-[24px]">
+            <div className="flex items-center p-[24px]">
               <input
                 type="checkbox"
                 name="full_time"
-                value=""
-                class="cursor-pointer opacity-0 absolute h-[24px] w-[24px]"
+                className="cursor-pointer opacity-0 absolute h-[24px] w-[24px]"
               />
-              <div class="bg-grey-light dark:bg-grey-btn border-0 rounded-sm  h-[24px] w-[24px] flex flex-shrink-0 justify-center items-center mr-[16px]">
-                <CheckIcon class="hidden dark:bg-violet-dark dark:w-full dark:h-full dark:items-center dark:p-[5px] dark:rounded-sm" />
+              <div className="bg-grey-light dark:bg-grey-btn border-0 rounded-sm  h-[24px] w-[24px] flex flex-shrink-0 justify-center items-center mr-[16px]">
+                <CheckIcon className="hidden dark:bg-violet-dark dark:w-full dark:h-full dark:items-center dark:p-[5px] dark:rounded-sm" />
               </div>
               <label for="full_time" className="font-semibold dark:text-white">
                 Full Time Only
