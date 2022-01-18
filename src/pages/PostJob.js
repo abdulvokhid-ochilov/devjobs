@@ -1,10 +1,69 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import EditorComp from "../components/Editor";
+import { useRef, useContext } from "react";
+import Context from "../store/context";
 
 const PostJob = () => {
+  const ctx = useContext(Context);
+
+  const editorRef = useRef();
+  const companyNameRef = useRef();
+  const companyWebsiteRef = useRef();
+  const positionRef = useRef();
+  const locationRef = useRef();
+  const jobTypeRef = useRef();
+
   const submitHandler = (e) => {
     e.preventDefault();
+
+    const jobDescription = editorRef.current.getContent();
+    const companyName = companyNameRef.current.value;
+    const companyWebsite = companyWebsiteRef.current.value;
+    const position = positionRef.current.value;
+    const location = locationRef.current.value;
+    const jobType = jobTypeRef.current.value;
+
+    let url = "http://localhost:5000/api/v1/jobs";
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        company: companyName,
+        logo: "./assets/logos/blogr.svg",
+        position: position,
+        contract: jobType,
+        location: location,
+        website: companyWebsite,
+        description: jobDescription,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ctx.token}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Job creation failed!";
+
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        editorRef.current.setContent("");
+        companyNameRef.current.value = "";
+        companyWebsiteRef.current.value = "";
+        positionRef.current.value = "";
+        locationRef.current.value = "";
+        // jobTypeRef.current.value = "";
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
   };
   return (
     <div className="-mt-10 pb-10 min-w-[330px] max-w-[1110px] lg:mx-auto md:mx-[40px] mx-[24px] md:grid md:grid-cols-2 md:gap-6">
@@ -34,6 +93,7 @@ const PostJob = () => {
                     Company Name
                   </label>
                   <input
+                    ref={companyNameRef}
                     required
                     type="text"
                     name="company-name"
@@ -50,6 +110,8 @@ const PostJob = () => {
                     Company website
                   </label>
                   <input
+                    ref={companyWebsiteRef}
+                    required
                     type="text"
                     name="company-website"
                     id="company-website"
@@ -62,6 +124,8 @@ const PostJob = () => {
                     Position
                   </label>
                   <input
+                    ref={positionRef}
+                    required
                     type="text"
                     name="position"
                     id="position"
@@ -73,6 +137,8 @@ const PostJob = () => {
                     Location
                   </label>
                   <input
+                    ref={locationRef}
+                    required
                     type="text"
                     name="location"
                     id="location"
@@ -84,6 +150,8 @@ const PostJob = () => {
                     Type
                   </label>
                   <select
+                    ref={jobTypeRef}
+                    required
                     name="type"
                     id="type"
                     className="mt-1 p-1.5 focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light block w-full border border-grey-med dark:border-grey-hover dark:bg-blue-dark rounded"
@@ -98,7 +166,7 @@ const PostJob = () => {
                   <h1 className="my-4 text-[18px]">
                     Job description in detail
                   </h1>
-                  <EditorComp />
+                  <EditorComp ref={editorRef} value="" />
                 </div>
               </div>
             </div>

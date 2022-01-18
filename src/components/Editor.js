@@ -1,19 +1,12 @@
-import React, { useRef } from "react";
+import React, { forwardRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
-export default function EditorComp(props) {
-  const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
-
+const EditorComp = forwardRef((props, ref) => {
   return (
     <>
       <Editor
-        onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue="<p>This is the initial content of the editor.</p>"
+        onInit={(evt, editor) => (ref.current = editor)}
+        initialValue={props.value}
         init={{
           selector: "textarea#open-source-plugins",
           plugins:
@@ -105,4 +98,6 @@ export default function EditorComp(props) {
       />
     </>
   );
-}
+});
+
+export default EditorComp;
