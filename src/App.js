@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import Login from "./pages/Login";
 import Forgot from "./pages/Forgot";
 import Registration from "./pages/Registration";
-import Profile from "./pages/Profile";
+import EditProfile from "./pages/EditProfile";
 import Applicants from "./pages/Applicants";
 import ApplicantInfo from "./pages/ApplicantInfo";
 import MyJobs from "./pages/MyJobs";
@@ -44,7 +44,9 @@ const App = () => {
           )}
           {!isLoggedIn && <Route element={<Forgot />} path="/forgot"></Route>}
 
-          {isLoggedIn && <Route element={<Profile />} path="/profile"></Route>}
+          {isLoggedIn && (
+            <Route element={<EditProfile />} path="/profile"></Route>
+          )}
           {isLoggedIn && <Route element={<MyJobs />} path="/myjobs"></Route>}
           {isLoggedIn && <Route element={<PostJob />} path="/post-job"></Route>}
           {isLoggedIn && (
