@@ -10,21 +10,16 @@ const retrieveStoredToken = () => {
 };
 
 const ContextProvider = (props) => {
-  const tokenData = retrieveStoredToken();
-
-  let initialToken;
-  if (tokenData) {
-    initialToken = tokenData.token;
-  }
-
-  const [token, setToken] = useState(initialToken);
+  const [token, setToken] = useState();
   const [mode, setMode] = useState();
+  const [user, setUser] = useState();
 
   const userIsLoggedIn = !!token;
 
   const logoutHandler = () => {
     setToken(null);
     localStorage.removeItem("token");
+    setUser(null);
   };
 
   const loginHandler = (token) => {
@@ -37,6 +32,39 @@ const ContextProvider = (props) => {
 
     // logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
+
+  useEffect(() => {
+    const tokenData = retrieveStoredToken().token;
+    if (tokenData) {
+      setToken(tokenData);
+      let url = "http://localhost:5000/api/v1/jobs";
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenData}`,
+        },
+      })
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            return res.json().then((data) => {
+              let errorMessage = "Getting user data failed!";
+
+              throw new Error(errorMessage);
+            });
+          }
+        })
+        .then((data) => {
+          console.log(data);
+          setUserDataHandler(data.data);
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     if (localStorage.theme === "true") {
@@ -58,13 +86,19 @@ const ContextProvider = (props) => {
     }
   };
 
+  const setUserDataHandler = (data) => {
+    setUser(data);
+  };
+
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
     darkMode: mode,
+    userData: user,
     login: loginHandler,
     logout: logoutHandler,
     setMode: themeSetter,
+    setUserData: setUserDataHandler,
   };
 
   return (

@@ -6,7 +6,7 @@ const Login = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
 
-  const authCtx = useContext(Context);
+  const ctx = useContext(Context);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -37,7 +37,9 @@ const Login = () => {
         }
       })
       .then((data) => {
-        authCtx.login(data.token);
+        ctx.login(data.token);
+        ctx.setUserData(data.data.user);
+        // console.log(data.data.user);
       })
       .catch((err) => {
         alert(err.message);

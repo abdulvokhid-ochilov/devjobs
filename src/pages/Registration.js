@@ -3,7 +3,7 @@ import { useRef, useState, useContext } from "react";
 import Context from "../store/context";
 
 const Registration = () => {
-  const authCtx = useContext(Context);
+  const ctx = useContext(Context);
 
   const firstNameInput = useRef();
   const lastNameInput = useRef();
@@ -35,7 +35,7 @@ const Registration = () => {
     event.preventDefault();
 
     const firstName = firstNameInput.current.value;
-    const lastName = lastNameInput.current.current;
+    const lastName = lastNameInput.current.value;
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
 
@@ -65,7 +65,8 @@ const Registration = () => {
         }
       })
       .then((data) => {
-        authCtx.login(data.token);
+        ctx.login(data.token);
+        ctx.setUserData(data.data.user);
       })
       .catch((err) => {
         alert(err.message);

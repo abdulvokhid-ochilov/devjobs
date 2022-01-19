@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Context from "../store/context";
 
 const Recovery = () => {
-  const authCtx = useContext(Context);
+  const ctx = useContext(Context);
   const { token } = useParams();
 
   const passwordInput = useRef();
@@ -57,7 +57,8 @@ const Recovery = () => {
         }
       })
       .then((data) => {
-        authCtx.login(data.token);
+        ctx.login(data.token);
+        ctx.setUserData(data.data.user);
       })
       .catch((err) => {
         alert(err.message);
