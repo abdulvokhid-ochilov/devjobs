@@ -34,10 +34,11 @@ const ContextProvider = (props) => {
   };
 
   useEffect(() => {
+    let isMounted = true;
     const tokenData = retrieveStoredToken().token;
     if (tokenData) {
       setToken(tokenData);
-      let url = "http://localhost:5000/api/v1/jobs";
+      let url = "http://localhost:5000/api/v1/user/account";
       fetch(url, {
         method: "GET",
         headers: {
@@ -57,13 +58,16 @@ const ContextProvider = (props) => {
           }
         })
         .then((data) => {
-          console.log(data);
-          setUserDataHandler(data.data);
+          console.log(data.data);
+          if (isMounted) setUserDataHandler(data.data);
         })
         .catch((err) => {
           alert(err.message);
         });
     }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {

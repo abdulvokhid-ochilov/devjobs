@@ -38,7 +38,7 @@ const ApplicantInfo = () => {
           <div className="bg-gray-50 dark:bg-blue-dark px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className=" font-medium text-grey-dark">Email address</dt>
             <dd className="mt-1 dark:text-white sm:mt-0 sm:col-span-2">
-              {ctx.userData.email}
+              {ctx.userData.email || null}
             </dd>
           </div>
 
