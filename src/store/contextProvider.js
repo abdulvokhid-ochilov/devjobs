@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Context from "./context";
 
 const retrieveStoredToken = () => {
@@ -33,51 +33,6 @@ const ContextProvider = (props) => {
     // logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
 
-  useEffect(() => {
-    let isMounted = true;
-    const tokenData = retrieveStoredToken().token;
-    if (tokenData) {
-      setToken(tokenData);
-      let url = "http://localhost:5000/api/v1/user/account";
-      fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenData}`,
-        },
-      })
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else {
-            return res.json().then((data) => {
-              let errorMessage = "Getting user data failed!";
-
-              throw new Error(errorMessage);
-            });
-          }
-        })
-        .then((data) => {
-          console.log(data.data);
-          if (isMounted) setUserDataHandler(data.data);
-        })
-        .catch((err) => {
-          alert(err.message);
-        });
-    }
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (localStorage.theme === "true") {
-      themeSetter(true);
-    } else {
-      themeSetter(false);
-    }
-  }, []);
-
   const themeSetter = (condition) => {
     if (condition) {
       document.documentElement.classList.add("dark");
@@ -94,6 +49,55 @@ const ContextProvider = (props) => {
     setUser(data);
   };
 
+  const updateUserDataHandler = useCallback((token) => {
+    let url = "http://localhost:5000/api/v1/user/account";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Getting user data failed!";
+
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data.data);
+        setUserDataHandler(data.data);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  }, []);
+
+  useEffect(() => {
+    // let isMounted = true;
+    const tokenData = retrieveStoredToken().token;
+    if (tokenData) {
+      setToken(tokenData);
+      updateUserDataHandler(tokenData);
+    }
+    // return () => {
+    //   isMounted = false;
+    // };
+  }, [updateUserDataHandler]);
+
+  useEffect(() => {
+    if (localStorage.theme === "true") {
+      themeSetter(true);
+    } else {
+      themeSetter(false);
+    }
+  }, []);
+
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
@@ -103,6 +107,7 @@ const ContextProvider = (props) => {
     logout: logoutHandler,
     setMode: themeSetter,
     setUserData: setUserDataHandler,
+    updateUserData: updateUserDataHandler,
   };
 
   return (

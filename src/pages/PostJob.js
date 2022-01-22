@@ -60,6 +60,7 @@ const PostJob = () => {
         positionRef.current.value = "";
         locationRef.current.value = "";
         // jobTypeRef.current.value = "";
+        ctx.updateUserData(ctx.token);
       })
       .catch((err) => {
         alert(err.message);

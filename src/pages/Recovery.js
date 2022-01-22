@@ -58,7 +58,7 @@ const Recovery = () => {
       })
       .then((data) => {
         ctx.login(data.token);
-        ctx.setUserData(data.data.user);
+        ctx.updateUserData(data.token);
       })
       .catch((err) => {
         alert(err.message);

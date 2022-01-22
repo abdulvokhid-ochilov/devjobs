@@ -38,7 +38,7 @@ const Login = () => {
       })
       .then((data) => {
         ctx.login(data.token);
-        ctx.setUserData(data.data.user);
+        ctx.updateUserData(data.token);
         // console.log(data.data.user);
       })
       .catch((err) => {
