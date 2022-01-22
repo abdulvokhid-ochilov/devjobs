@@ -56,6 +56,7 @@ const App = () => {
             <Route element={<ApplicantInfo />} path="/applicants/:id"></Route>
           )}
           <Route element={<Jobs />} path="/"></Route>
+          <Route path="*" element={<Jobs />} />
         </Routes>
       </BrowserRouter>
     </div>

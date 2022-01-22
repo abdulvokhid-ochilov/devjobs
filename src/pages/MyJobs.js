@@ -71,9 +71,9 @@ const MyJobs = () => {
               </thead>
               <tbody className="text-sm divide-y divide-grey-light dark:divide-grey-hover">
                 {ctx.userData.postedJobs.map((job) => (
-                  <tr>
+                  <tr key={job["_id"]}>
                     <td className="p-2 whitespace-nowrap">
-                      <Link to="">
+                      <Link to="../">
                         <div className="flex items-center">
                           <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
                             <img
@@ -105,9 +105,11 @@ const MyJobs = () => {
                       </div>
                     </td>
                     <td className="p-2 whitespace-nowrap">
-                      <div className="text-lg text-center text-green-500 hover:text-black dark:hover:text-white hover:cursor-pointer">
-                        <FontAwesomeIcon icon={faEdit} />
-                      </div>
+                      <Link to="/post-job" state={job}>
+                        <div className="text-lg text-center text-green-500 hover:text-black dark:hover:text-white hover:cursor-pointer">
+                          <FontAwesomeIcon icon={faEdit} />
+                        </div>
+                      </Link>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <div

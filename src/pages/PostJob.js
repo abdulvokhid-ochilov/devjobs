@@ -1,11 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import EditorComp from "../components/Editor";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useEffect } from "react";
 import Context from "../store/context";
+import { useLocation, useNavigate, Outlet } from "react-router-dom";
 
 const PostJob = () => {
   const ctx = useContext(Context);
+  const navigate = useNavigate();
+
+  const jobData = useLocation().state;
+  console.log(jobData);
 
   const editorRef = useRef();
   const companyNameRef = useRef();
@@ -13,6 +18,23 @@ const PostJob = () => {
   const positionRef = useRef();
   const locationRef = useRef();
   const jobTypeRef = useRef();
+
+  useEffect(() => {
+    if (jobData) {
+      // editorRef.current.setContent(jobData.description);
+      companyNameRef.current.value = jobData.company;
+      companyWebsiteRef.current.value = jobData.website;
+      positionRef.current.value = jobData.position;
+      locationRef.current.value = jobData.location;
+      jobTypeRef.current.value = jobData.contract;
+    } else {
+      companyNameRef.current.value = "";
+      companyWebsiteRef.current.value = "";
+      positionRef.current.value = "";
+      locationRef.current.value = "";
+      jobTypeRef.current.value = "Full Time";
+    }
+  }, [jobData]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -24,9 +46,11 @@ const PostJob = () => {
     const location = locationRef.current.value;
     const jobType = jobTypeRef.current.value;
 
-    let url = "http://localhost:5000/api/v1/jobs";
+    let url = jobData
+      ? `http://localhost:5000/api/v1/user/posted-jobs/${jobData["_id"]}`
+      : "http://localhost:5000/api/v1/jobs";
     fetch(url, {
-      method: "POST",
+      method: jobData ? "PATCH" : "POST",
       body: JSON.stringify({
         company: companyName,
         logo: "./assets/logos/blogr.svg",
@@ -46,7 +70,9 @@ const PostJob = () => {
           return res.json();
         } else {
           return res.json().then((data) => {
-            let errorMessage = "Job creation failed!";
+            let errorMessage = jobData
+              ? "Job update failed!"
+              : "Job creation failed!";
 
             throw new Error(errorMessage);
           });
@@ -61,6 +87,8 @@ const PostJob = () => {
         locationRef.current.value = "";
         // jobTypeRef.current.value = "";
         ctx.updateUserData(ctx.token);
+        // using replace here
+        jobData && navigate("/myjobs", { replace: true });
       })
       .catch((err) => {
         alert(err.message);
@@ -167,7 +195,19 @@ const PostJob = () => {
                   <h1 className="my-4 text-[18px]">
                     Job description in detail
                   </h1>
-                  <EditorComp ref={editorRef} value="" />
+                  <EditorComp
+                    ref={editorRef}
+                    value={
+                      jobData
+                        ? jobData.description
+                            .replaceAll("&amp;", "&")
+                            .replaceAll("&lt;", "<")
+                            .replaceAll("&gt;", ">")
+                            .replaceAll("&quot;", '"')
+                            .replaceAll("&#039;", "'")
+                        : ""
+                    }
+                  />
                 </div>
               </div>
             </div>
