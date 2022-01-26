@@ -93,7 +93,7 @@ const EditProfile = () => {
                       className="mt-1 p-1 block dark:bg-blue-dark w-full border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light border-grey-med dark:border-grey-hover rounded"
                     />
                   </div>
-                  <div className="col-span-6 sm:col-span-3">
+                  {/* <div className="col-span-6 sm:col-span-3">
                     <label className="block text-[18px]">Password</label>
                     <input
                       required
@@ -102,7 +102,7 @@ const EditProfile = () => {
                       id="password"
                       className="mt-1 p-1 block dark:bg-blue-dark w-full border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light border-grey-med dark:border-grey-hover rounded"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="px-4 py-3 dark:bg-blue-dark bg-gray-50 text-right sm:px-6">

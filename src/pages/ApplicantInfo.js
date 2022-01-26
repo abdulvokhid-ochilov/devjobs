@@ -13,8 +13,8 @@ const ApplicantInfo = () => {
         <Link to="#" class="block relative">
           <img
             alt="profile"
-            src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZSUyMHBob3RvfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
-            class="mx-auto object-cover rounded-full h-16 w-16 "
+            src={ctx.userData.photo}
+            class="mx-auto object-cover bg-black rounded-full h-16 w-16"
           />
         </Link>
         <div className="ml-3">
@@ -69,7 +69,11 @@ const ApplicantInfo = () => {
                   </div>
                   <div className="ml-4 flex-shrink-0">
                     <Link
-                      to="#"
+                      target="_blank"
+                      to="/"
+                      onClick={() => {
+                        window.open(ctx.userData.resume);
+                      }}
                       className="font-medium text-indigo-600 hover:text-indigo-500"
                     >
                       Download
