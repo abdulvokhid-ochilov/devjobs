@@ -41,9 +41,7 @@ const Search = () => {
             <div className="bg-grey-light dark:bg-grey-btn border-0 rounded-sm  h-[24px] w-[24px] flex flex-shrink-0 justify-center items-center mr-[16px]">
               <CheckIcon className="hidden dark:bg-violet-dark dark:w-full dark:h-full dark:items-center dark:p-[5px] dark:rounded-sm" />
             </div>
-            <label for="full_time" className="font-semibold">
-              Full Time
-            </label>
+            <label className="font-semibold">Full Time</label>
           </div>
           <Button
             width="w-auto"
@@ -86,7 +84,7 @@ const Search = () => {
               <div className="bg-grey-light dark:bg-grey-btn border-0 rounded-sm  h-[24px] w-[24px] flex flex-shrink-0 justify-center items-center mr-[16px]">
                 <CheckIcon className="hidden dark:bg-violet-dark dark:w-full dark:h-full dark:items-center dark:p-[5px] dark:rounded-sm" />
               </div>
-              <label for="full_time" className="font-semibold dark:text-white">
+              <label className="font-semibold dark:text-white">
                 Full Time Only
               </label>
             </div>

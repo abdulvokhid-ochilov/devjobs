@@ -9,6 +9,7 @@ const Context = React.createContext({
   logout: () => {},
   setMode: (condition) => {},
   setUserData: (data) => {},
+  updateUserData: (token) => {},
 });
 
 export default Context;

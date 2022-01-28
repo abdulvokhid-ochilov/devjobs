@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faPaperclip } from "@fortawesome/free-solid-svg-icons";
-import { faFile } from "@fortawesome/free-solid-svg-icons";
+import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useContext, useEffect, useState } from "react";
 import Context from "../store/context";
 
@@ -118,9 +117,6 @@ const EditProfile = () => {
                     </div>
                   ) : (
                     <div className="mt-1 flex items-center">
-                      {/* <span className="flex items-center justify-center h-12 w-12 rounded-2xl overflow-hidden bg-grey-light dark:text-grey-btn">
-                        <FontAwesomeIcon icon={faUserCircle} size="lg" />
-                      </span> */}
                       <input
                         ref={photoInputRef}
                         className=" cursor-pointer bg-white border-violet-dark dark:text-black border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light text-sm rounded"
@@ -168,9 +164,6 @@ const EditProfile = () => {
                     </ul>
                   ) : (
                     <div className="mt-1 flex items-center">
-                      {/* <span className="flex items-center justify-center h-12 w-12 rounded-2xl overflow-hidden bg-grey-light dark:text-grey-btn">
-                        <FontAwesomeIcon icon={faFile} size="lg" />
-                      </span> */}
                       <input
                         ref={resumeInputRef}
                         className="cursor-pointer bg-white border-violet-dark dark:text-black border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light text-sm rounded"
@@ -236,16 +229,6 @@ const EditProfile = () => {
                       className="mt-1 p-1 block dark:bg-blue-dark w-full border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light border-grey-med dark:border-grey-hover rounded"
                     />
                   </div>
-                  {/* <div className="col-span-6 sm:col-span-3">
-                    <label className="block text-[18px]">Password</label>
-                    <input
-                      required
-                      type="password"
-                      name="password"
-                      id="password"
-                      className="mt-1 p-1 block dark:bg-blue-dark w-full border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light border-grey-med dark:border-grey-hover rounded"
-                    />
-                  </div> */}
                 </div>
               </div>
               <div className="px-4 py-3 dark:bg-blue-dark bg-gray-50 text-right sm:px-6">

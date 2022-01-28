@@ -39,7 +39,7 @@ const MyJobs = () => {
 
   return (
     <div className="-mt-10 min-w-[330px] max-w-[1110px] lg:mx-auto md:mx-[40px] mx-[24px] flex flex-col items-center justify-center">
-      <div className="w-full bg-white dark:bg-blue-dark shadow rounded border border-grey-light dark:border-grey-hover">
+      <div className="w-full mb-8 bg-white dark:bg-blue-dark shadow rounded border border-grey-light dark:border-grey-hover">
         <header className="px-5 py-4 border-b border-grey-light dark:border-grey-hover">
           <h2 className="font-semibold">Posted Jobs</h2>
         </header>
@@ -77,10 +77,8 @@ const MyJobs = () => {
                         <div className="flex items-center">
                           <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
                             <img
-                              className="rounded-md bg-yellow-500 object-contain  "
+                              className="rounded-md bg-yellow-500 object-contain"
                               src={job.logo}
-                              width="40"
-                              height="40"
                               alt={job.company}
                             />
                           </div>

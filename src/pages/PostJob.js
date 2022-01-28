@@ -1,5 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faImage } from "@fortawesome/free-solid-svg-icons";
 import EditorComp from "../components/Editor";
 import { useRef, useContext, useEffect, useState } from "react";
 import Context from "../store/context";
@@ -215,6 +215,7 @@ const PostJob = () => {
                     <option value="Full Time">Full Time</option>
                     <option value="Part Time">Part Time</option>
                     <option value="Internship">Internship</option>
+                    <option value="Freelance">Freelance</option>
                   </select>
                 </div>
 

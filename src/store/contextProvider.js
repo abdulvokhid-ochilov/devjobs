@@ -23,14 +23,8 @@ const ContextProvider = (props) => {
   };
 
   const loginHandler = (token) => {
-    // console.log(token);
     setToken(token);
     localStorage.setItem("token", token);
-    //   localStorage.setItem("expirationTime", expirationTime);
-
-    // const remainingTime = calculateRemainingTime(expirationTime);
-
-    // logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
 
   const themeSetter = (condition) => {
@@ -99,6 +93,7 @@ const ContextProvider = (props) => {
     isLoggedIn: userIsLoggedIn,
     darkMode: mode,
     userData: user,
+
     login: loginHandler,
     logout: logoutHandler,
     setMode: themeSetter,

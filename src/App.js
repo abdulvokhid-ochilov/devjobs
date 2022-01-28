@@ -23,7 +23,7 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route element={<JobDetails />} path="/details/:id"></Route>
+          <Route element={<JobDetails />} path="/details"></Route>
           {!isLoggedIn ? (
             <Route element={<Login />} path="/login"></Route>
           ) : (
