@@ -3,7 +3,7 @@ import { faImage } from "@fortawesome/free-solid-svg-icons";
 import EditorComp from "../components/Editor";
 import { useRef, useContext, useEffect } from "react";
 import Context from "../store/context";
-import { useLocation, useNavigate, Outlet } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const PostJob = () => {
   const ctx = useContext(Context);

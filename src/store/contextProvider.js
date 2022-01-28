@@ -79,15 +79,11 @@ const ContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
-    // let isMounted = true;
     const tokenData = retrieveStoredToken().token;
     if (tokenData) {
       setToken(tokenData);
       updateUserDataHandler(tokenData);
     }
-    // return () => {
-    //   isMounted = false;
-    // };
   }, [updateUserDataHandler]);
 
   useEffect(() => {
