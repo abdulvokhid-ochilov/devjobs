@@ -77,7 +77,7 @@ const MyJobs = () => {
                         <div className="flex items-center">
                           <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
                             <img
-                              className="rounded-md bg-yellow-500 p-1"
+                              className="rounded-md bg-yellow-500 object-contain  "
                               src={job.logo}
                               width="40"
                               height="40"

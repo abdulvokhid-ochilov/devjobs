@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import EditorComp from "../components/Editor";
-import { useRef, useContext, useEffect } from "react";
+import { useRef, useContext, useEffect, useState } from "react";
 import Context from "../store/context";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -12,12 +12,15 @@ const PostJob = () => {
   const jobData = useLocation().state;
   console.log(jobData);
 
+  const [photo, setPhoto] = useState();
+
   const editorRef = useRef();
   const companyNameRef = useRef();
   const companyWebsiteRef = useRef();
   const positionRef = useRef();
   const locationRef = useRef();
   const jobTypeRef = useRef();
+  const logoRef = useRef();
 
   useEffect(() => {
     if (jobData) {
@@ -27,12 +30,14 @@ const PostJob = () => {
       positionRef.current.value = jobData.position;
       locationRef.current.value = jobData.location;
       jobTypeRef.current.value = jobData.contract;
+      setPhoto(jobData.logo);
     } else {
       companyNameRef.current.value = "";
       companyWebsiteRef.current.value = "";
       positionRef.current.value = "";
       locationRef.current.value = "";
       jobTypeRef.current.value = "Full Time";
+      setPhoto(null);
     }
   }, [jobData]);
 
@@ -45,23 +50,26 @@ const PostJob = () => {
     const position = positionRef.current.value;
     const location = locationRef.current.value;
     const jobType = jobTypeRef.current.value;
+    const logo = logoRef.current ? logoRef.current.files[0] : photo;
+    console.log(logo);
+    const formData = new FormData();
+
+    formData.append("description", jobDescription);
+    formData.append("company", companyName);
+    formData.append("logo", logo);
+    formData.append("website", companyWebsite);
+    formData.append("position", position);
+    formData.append("location", location);
+    formData.append("contract", jobType);
 
     let url = jobData
       ? `http://localhost:5000/api/v1/user/posted-jobs/${jobData["_id"]}`
       : "http://localhost:5000/api/v1/jobs";
     fetch(url, {
       method: jobData ? "PATCH" : "POST",
-      body: JSON.stringify({
-        company: companyName,
-        logo: "./assets/logos/blogr.svg",
-        position: position,
-        contract: jobType,
-        location: location,
-        website: companyWebsite,
-        description: jobDescription,
-      }),
+      body: formData,
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
         Authorization: `Bearer ${ctx.token}`,
       },
     })
@@ -102,16 +110,35 @@ const PostJob = () => {
             <div className="px-4 py-5 bg-white dark:bg-blue-dark space-y-6 sm:p-6">
               <div>
                 <label className="block text-[18px]">Company Logo</label>
-                <div className="mt-1 flex items-center">
-                  <span className="flex items-center justify-center h-12 w-12 rounded-md overflow-hidden bg-grey-light dark:text-grey-btn">
-                    <FontAwesomeIcon icon={faImage} size="lg" />
-                  </span>
-                  <input
-                    className="ml-4 cursor-pointer bg-white border-violet-dark dark:text-black border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light text-sm rounded"
-                    id="company-logo"
-                    type="file"
-                  />
-                </div>
+                {photo ? (
+                  <div className="mt-1 flex items-center">
+                    <img
+                      src={photo}
+                      alt="Company Logo"
+                      className="h-14 w-14 object-contain rounded-md overflow-hidden bg-white"
+                    />
+                    <div
+                      className="inline-flex justify-center ml-4 py-2 px-2 border border-transparent shadow-sm text-sm font-medium rounded text-white bg-red-500 hover:bg-red-400  hover:cursor-pointer"
+                      onClick={() => {
+                        setPhoto(null);
+                      }}
+                    >
+                      Delete
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-1 flex items-center">
+                    {/* <span className="flex items-center justify-center h-12 w-12 rounded-md overflow-hidden bg-grey-light dark:text-grey-btn">
+                      <FontAwesomeIcon icon={faImage} size="lg" />
+                    </span> */}
+                    <input
+                      ref={logoRef}
+                      className=" cursor-pointer bg-white border-violet-dark dark:text-black border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light text-sm rounded"
+                      id="company-logo"
+                      type="file"
+                    />
+                  </div>
+                )}
               </div>
             </div>
 
