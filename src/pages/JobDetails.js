@@ -1,10 +1,62 @@
 import Button from "../components/Button";
 import { Link, useLocation } from "react-router-dom";
+import { useContext } from "react";
+import Context from "../store/context";
 
 const Jobsjob = function () {
+  const ctx = useContext(Context);
   const job = useLocation().state;
   console.log(job);
 
+  const applyJob = () => {
+    if (!ctx.isLoggedIn) {
+      return alert("You need to log in to apply for a job!");
+    }
+
+    if (ctx.userData["_id"] === job.postedBy) {
+      return alert("You cannot apply for a job you posted!");
+    }
+
+    if (ctx.userData.resume === "undefined" || !ctx.userData.resume) {
+      return alert("You need to upload your resume to apply for a job!");
+    }
+
+    const appliedJobs = ctx.userData.appliedJobs;
+
+    for (let i = 0; i < appliedJobs.length; i++) {
+      if (appliedJobs[i].job["_id"] === job["_id"]) {
+        return alert("You have already applied to this job!");
+      }
+    }
+
+    let url = `http://localhost:5000/api/v1/jobs/${job["_id"]}/apply`;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ctx.token}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Applying for a job is failed!";
+
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data);
+
+        ctx.updateUserData(ctx.token);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  };
   return (
     <>
       <div className="md:mx-auto sm:mx-[40px] mx-[24px] -mt-10 mb-10 sm:mb-20 max-w-[730px] min-w-[330px]">
@@ -41,7 +93,7 @@ const Jobsjob = function () {
           </div>
         </div>
         <div className="py-[40px] px-[24px] md:p-[48px] bg-white dark:bg-blue-dark mt-6 sm:mt-8 rounded-md max-w-[22rem] sm:max-w-full mx-auto">
-          <div className="flex w-full justify-between sm:items-center flex-col sm:flex-row">
+          <div className="flex w-full justify-between sm:items-center flex-col sm:flex-row mb-4">
             <div>
               <p className="text-grey-dark text-base">
                 {new Date(job.postedAt).toLocaleDateString()}
@@ -55,12 +107,12 @@ const Jobsjob = function () {
                 {job.location}
               </p>
             </div>
-            <Link to="/">
-              <Button
-                text="Apply Now"
-                className="bg-violet-dark text-white hover:bg-violet-light w-full sm:w-full mt-[49px] sm:mt-0"
-              />
-            </Link>
+
+            <Button
+              onClick={applyJob}
+              text="Apply Now"
+              className="bg-violet-dark text-white hover:bg-violet-light w-full sm:w-40 mt-[49px] sm:mt-0"
+            />
           </div>
           <div dangerouslySetInnerHTML={{ __html: job.description }} />
         </div>
@@ -71,12 +123,12 @@ const Jobsjob = function () {
             <p className="font-bold py-1 text-[20px]">{job.position}</p>
             <p className="text-grey-dark text-base">{job.company}</p>
           </div>
-          <Link to="/">
-            <Button
-              text="Apply Now"
-              className="bg-violet-dark text-white hover:bg-violet-light w-full"
-            />
-          </Link>
+
+          <Button
+            onClick={applyJob}
+            text="Apply Now"
+            className="bg-violet-dark text-white hover:bg-violet-light w-full sm:w-40"
+          />
         </div>
       </footer>
     </>

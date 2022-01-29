@@ -52,7 +52,9 @@ const ApplicantInfo = () => {
             <dt className=" font-medium text-grey-dark">Attachments</dt>
             <dd className="mt-1  dark:text-white sm:mt-0 sm:col-span-2">
               <ul className="border border-grey-med dark:border-grey-hover rounded divide-y divide-grey-med">
-                {ctx.userData.resume !== "undefined" ? (
+                {ctx.userData.resume === "undefined" || !ctx.userData.resume ? (
+                  <p className="p-2">Resume has not been uploaded yet.</p>
+                ) : (
                   <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                     <div className="w-0 flex-1 flex items-center">
                       <FontAwesomeIcon
@@ -77,8 +79,6 @@ const ApplicantInfo = () => {
                       </Link>
                     </div>
                   </li>
-                ) : (
-                  <p className="p-2">Resume has not been uploaded yet.</p>
                 )}
               </ul>
             </dd>

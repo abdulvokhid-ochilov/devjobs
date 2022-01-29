@@ -35,8 +35,6 @@ const EditProfile = () => {
     const resumeInput = resumeInputRef.current
       ? resumeInputRef.current.files[0]
       : resume;
-    console.log(resumeInput);
-    console.log(photoInput);
     const firstNameInput = firstNameInputRef.current.value;
     const lastNameInput = lastNameInputRef.current.value;
     const emailInput = emailInputRef.current.value;
@@ -45,12 +43,13 @@ const EditProfile = () => {
       return alert("Photo should be less 1mb.");
     }
 
-    if (
-      resumeInput &&
-      resumeInput.size > 1000000 &&
-      resumeInput.type !== "application/pdf"
-    ) {
-      return alert("Resume should be less 1mb and must be in pdf format.");
+    if (resumeInput) {
+      if (
+        resumeInput.size > 1000000 ||
+        resumeInput.type !== "application/pdf"
+      ) {
+        return alert("Resume should be less 1mb and must be in pdf format.");
+      }
     }
     const formData = new FormData();
 
@@ -128,7 +127,17 @@ const EditProfile = () => {
                 </div>
                 <div>
                   <label className="block text-[18px]">Resume</label>
-                  {resume !== "undefined" ? (
+                  {ctx.userData.resume === "undefined" ||
+                  !ctx.userData.resume ? (
+                    <div className="mt-1 flex items-center">
+                      <input
+                        ref={resumeInputRef}
+                        className="cursor-pointer bg-white border-violet-dark dark:text-black border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light text-sm rounded"
+                        id="resume"
+                        type="file"
+                      />
+                    </div>
+                  ) : (
                     <ul className="border border-grey-med dark:border-grey-hover rounded divide-y divide-grey-med">
                       <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
                         <div className="w-0 flex-1 flex items-center">
@@ -162,15 +171,6 @@ const EditProfile = () => {
                         </div>
                       </li>
                     </ul>
-                  ) : (
-                    <div className="mt-1 flex items-center">
-                      <input
-                        ref={resumeInputRef}
-                        className="cursor-pointer bg-white border-violet-dark dark:text-black border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light text-sm rounded"
-                        id="resume"
-                        type="file"
-                      />
-                    </div>
                   )}
                 </div>
               </div>

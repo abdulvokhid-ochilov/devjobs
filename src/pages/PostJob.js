@@ -1,5 +1,3 @@
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faImage } from "@fortawesome/free-solid-svg-icons";
 import EditorComp from "../components/Editor";
 import { useRef, useContext, useEffect, useState } from "react";
 import Context from "../store/context";
@@ -24,7 +22,6 @@ const PostJob = () => {
 
   useEffect(() => {
     if (jobData) {
-      // editorRef.current.setContent(jobData.description);
       companyNameRef.current.value = jobData.company;
       companyWebsiteRef.current.value = jobData.website;
       positionRef.current.value = jobData.position;
@@ -69,7 +66,6 @@ const PostJob = () => {
       method: jobData ? "PATCH" : "POST",
       body: formData,
       headers: {
-        // "Content-Type": "application/json",
         Authorization: `Bearer ${ctx.token}`,
       },
     })
@@ -93,9 +89,9 @@ const PostJob = () => {
         companyWebsiteRef.current.value = "";
         positionRef.current.value = "";
         locationRef.current.value = "";
-        // jobTypeRef.current.value = "";
+
         ctx.updateUserData(ctx.token);
-        // using replace here
+
         jobData && navigate("/myjobs", { replace: true });
       })
       .catch((err) => {
@@ -128,9 +124,6 @@ const PostJob = () => {
                   </div>
                 ) : (
                   <div className="mt-1 flex items-center">
-                    {/* <span className="flex items-center justify-center h-12 w-12 rounded-md overflow-hidden bg-grey-light dark:text-grey-btn">
-                      <FontAwesomeIcon icon={faImage} size="lg" />
-                    </span> */}
                     <input
                       ref={logoRef}
                       className=" cursor-pointer bg-white border-violet-dark dark:text-black border focus:outline-none focus:ring-2 focus:ring-violet-dark focus:ring-offset-2 focus:ring-offset-violet-light text-sm rounded"
