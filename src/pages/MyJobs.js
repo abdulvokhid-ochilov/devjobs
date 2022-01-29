@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { useContext } from "react";
 import Context from "../store/context";
 
@@ -58,8 +59,8 @@ const MyJobs = () => {
                   <th className="p-2 whitespace-nowrap hidden sm:table-cell">
                     <div className="font-semibold text-left">Location</div>
                   </th>
-                  <th className="p-2 whitespace-nowrap hidden sm:table-cell">
-                    <div className="font-semibold text-left">Type</div>
+                  <th className="p-2 whitespace-nowrap">
+                    <div className="font-semibold text-center">Applicants</div>
                   </th>
                   <th className="p-2 whitespace-nowrap">
                     <div className="font-semibold text-center">Edit</div>
@@ -97,10 +98,12 @@ const MyJobs = () => {
                         {job.location}
                       </div>
                     </td>
-                    <td className="p-2 whitespace-nowrap hidden sm:table-cell">
-                      <div className="text-left font-medium">
-                        {job.contract}
-                      </div>
+                    <td className="p-2 whitespace-nowrap">
+                      <Link to="/applicants" state={job["_id"]}>
+                        <div className="text-lg text-center text-violet-dark hover:text-black dark:hover:text-white hover:cursor-pointer">
+                          <FontAwesomeIcon icon={faUserFriends} />
+                        </div>
+                      </Link>
                     </td>
                     <td className="p-2 whitespace-nowrap">
                       <Link to="/post-job" state={job}>

@@ -1,160 +1,116 @@
-import { Link } from "react-router-dom";
-
-const people = [
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60",
-  },
-];
+import { Link, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useContext, useState } from "react";
+import Context from "../store/context";
 
 const Applicants = () => {
+  const ctx = useContext(Context);
+  const [applicants, setApplicants] = useState(null);
+  const id = useLocation().state;
+  console.log(id);
+
+  useEffect(() => {
+    let url = `http://localhost:5000/api/v1/user/posted-jobs/${id}`;
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ctx.token}`,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Getting applicants failed!";
+
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        setApplicants(data.data.applications);
+      })
+      .catch((err) => {
+        alert(err.message);
+      });
+  }, [id, ctx]);
+
   return (
-    <div className="-mt-10 min-w-[330px] max-w-[1110px] lg:mx-auto md:mx-[40px] mx-[24px] flex flex-col">
-      <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="shadow overflow-hidden border-b border-gray-200 rounded">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Name
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Title
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Status
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Role
-                  </th>
-                  <th scope="col" className="relative px-6 py-3">
-                    <span className="sr-only">Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {people.map((person) => (
-                  <tr key={person.email}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10">
-                          <img
-                            className="h-10 w-10 rounded-full"
-                            src={person.image}
-                            alt=""
-                          />
-                        </div>
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-gray-900">
-                            {person.name}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {person.email}
-                          </div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {person.title}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {person.department}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                        Active
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {person.role}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <Link to="/applicants/34">
-                        <button class="w-6 text-right flex justify-end">
-                          <svg
-                            width="20"
-                            fill="currentColor"
-                            height="20"
-                            class="hover:text-gray-800 dark:hover:text-white dark:text-gray-200 text-gray-500"
-                            viewBox="0 0 1792 1792"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z"></path>
-                          </svg>
-                        </button>
-                      </Link>
-                    </td>
+    <div className="-mt-10 min-w-[330px] max-w-[1110px] lg:mx-auto md:mx-[40px] mx-[24px] flex flex-col items-center justify-center">
+      <div className="w-full mb-8 bg-white dark:bg-blue-dark shadow rounded border border-grey-light dark:border-grey-hover">
+        <header className="px-5 py-4 border-b border-grey-light dark:border-grey-hover">
+          <h2 className="font-semibold">Applicants</h2>
+        </header>
+        {applicants ? (
+          <div className="p-3">
+            <div className="overflow-x-auto">
+              <table className="table-auto w-full">
+                <thead className="text-xs font-semibold uppercase text-gray-400 bg-grey-light dark:bg-blue-dark">
+                  <tr>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-left">Full Name</div>
+                    </th>
+
+                    <th className="p-2 whitespace-nowrap hidden sm:table-cell">
+                      <div className="font-semibold text-left">Email</div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap hidden sm:table-cell">
+                      <div className="font-semibold text-left">Applied at</div>
+                    </th>
+                    <th className="p-2 whitespace-nowrap">
+                      <div className="font-semibold text-center">Info</div>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="text-sm divide-y divide-grey-light dark:divide-grey-hover">
+                  {applicants.map((el) => (
+                    <tr key={el.applicant["_id"]}>
+                      <td className="p-2 whitespace-nowrap">
+                        <div className="flex items-center">
+                          <div className="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
+                            <img
+                              className="rounded-full bg-yellow-500 object-contain"
+                              src={el.applicant.photo}
+                              alt={el.applicant.firstName}
+                            />
+                          </div>
+                          <div className="font-medium">
+                            {el.applicant.firstName} {el.applicant.lastName}
+                          </div>
+                        </div>
+                      </td>
+
+                      <td className="p-2 whitespace-nowrap hidden sm:table-cell">
+                        <div className="text-left font-medium">
+                          {el.applicant.email}
+                        </div>
+                      </td>
+                      <td className="p-2 whitespace-nowrap hidden sm:table-cell">
+                        <div className="text-left font-medium">
+                          {new Date(el.appliedAt).toLocaleString()}
+                        </div>
+                      </td>
+
+                      <td className="p-2 whitespace-nowrap">
+                        <Link to="/applicant/info" state={el.applicant}>
+                          <div className="text-lg text-center text-violet-dark hover:text-black dark:hover:text-white hover:cursor-pointer">
+                            <FontAwesomeIcon icon={faArrowRight} />
+                          </div>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        ) : (
+          <p className="text-center">Loading...</p>
+        )}
       </div>
     </div>
   );

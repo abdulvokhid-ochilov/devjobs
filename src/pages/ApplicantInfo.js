@@ -1,11 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import Context from "../store/context";
+import { Link, useLocation } from "react-router-dom";
 
 const ApplicantInfo = () => {
-  const ctx = useContext(Context);
+  const person = useLocation().state;
+  console.log(person);
 
   return (
     <div className="-mt-10 min-w-[330px] max-w-[1110px] lg:mx-auto md:mx-[40px] mx-[24px] bg-white dark:bg-blue-dark shadow overflow-hidden rounded">
@@ -13,7 +12,7 @@ const ApplicantInfo = () => {
         <Link to="" className="block relative">
           <img
             alt="profile"
-            src={ctx.userData.photo}
+            src={person.photo}
             className="mx-auto object-cover rounded-full h-16 w-16"
           />
         </Link>
@@ -31,28 +30,28 @@ const ApplicantInfo = () => {
           <div className="bg-gray-50 dark:bg-blue-dark px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="font-medium text-grey-dark">Full name</dt>
             <dd className="mt-1 dark:text-white sm:mt-0 sm:col-span-2">
-              {`${ctx.userData.firstName} ${ctx.userData.lastName}`}
+              {`${person.firstName} ${person.lastName}`}
             </dd>
           </div>
 
           <div className="bg-gray-50 dark:bg-blue-dark px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className=" font-medium text-grey-dark">Email address</dt>
             <dd className="mt-1 dark:text-white sm:mt-0 sm:col-span-2">
-              {ctx.userData.email}
+              {person.email}
             </dd>
           </div>
 
           <div className="bg-gray-50 dark:bg-blue-dark px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className=" font-medium text-grey-dark">About</dt>
             <dd className="mt-1 dark:text-white sm:mt-0 sm:col-span-2">
-              {ctx.userData.about ? ctx.userData.about : "No information"}
+              {person.about ? person.about : "No information"}
             </dd>
           </div>
           <div className="bg-white dark:bg-blue-dark border-t border-gray-200 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className=" font-medium text-grey-dark">Attachments</dt>
             <dd className="mt-1  dark:text-white sm:mt-0 sm:col-span-2">
               <ul className="border border-grey-med dark:border-grey-hover rounded divide-y divide-grey-med">
-                {ctx.userData.resume === "undefined" || !ctx.userData.resume ? (
+                {person.resume === "undefined" || !person.resume ? (
                   <p className="p-2">Resume has not been uploaded yet.</p>
                 ) : (
                   <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
@@ -71,7 +70,7 @@ const ApplicantInfo = () => {
                         target="_blank"
                         to="/"
                         onClick={() => {
-                          window.open(ctx.userData.resume);
+                          window.open(person.resume);
                         }}
                         className="font-medium text-indigo-600 hover:text-indigo-500"
                       >

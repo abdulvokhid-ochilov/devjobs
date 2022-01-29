@@ -53,7 +53,7 @@ const App = () => {
             <Route element={<Applicants />} path="/applicants"></Route>
           )}
           {isLoggedIn && (
-            <Route element={<ApplicantInfo />} path="/applicants/:id"></Route>
+            <Route element={<ApplicantInfo />} path="/applicant/info"></Route>
           )}
           <Route element={<Jobs />} path="/"></Route>
           <Route path="*" element={<Jobs />} />
